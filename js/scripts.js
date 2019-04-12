@@ -1,64 +1,46 @@
 // back end
-  var pizzas = [];
-
-function Pizza(size, topping) {
+function Pizza (size, toppings) {
+  this.pizzas = []
   this.size = size,
-  this.addToppings(topping),
+  this.topping = toppings,
   this.currentId = 0
 }
 
-function Size(name, price) {
+function Toppings (name, price) {
   this.name = name,
   this.price = price
 }
 
-function Toppings(name, price) {
-  this.name = name,
-  this.price = price
-}
-
-Pizza.prototype.addToppings = function(topping) {
-  var topOnPizza = [];
-  topping.forEach(function(toppings) {
-    topOnPizza.push(toppings);
-  })
-  this.topping = topOnPizza;
-}
-
-Pizza.prototype.getPrice = function() {
-  price = parseInt(this.size.price)
-  this.topping.forEach(function(toppings) {
-    price += (parseInt(toppings.price)/100)
-  });
-  return price.toFixed(2);
+function Size(name,price) {
+  this.name,
+  this.price
 }
 
 Pizza.prototype.addId = function(pizza) {
   pizza.id = this.assignId();
-  this.pizzas.push(pizza);
+  this.contacts.push(pizza);
 }
 
 Pizza.prototype.assignId = function() {
-  this.currentId += 1;
-  return this.currentId;
+  this.pizzaId += 1;
+  return this.pizzaId;
 }
 
 Pizza.prototype.findPizza = function(id) {
-  for (var i=0; i< this.pizzas.length; i++) {
-    if (this.pizzas[i]) {
-      if (this.pizzas[i].id == id) {
-        return this.pizzas[i];
+  for (var i=0; i< this.pizza.length; i++) {
+    if (this.pizza[i]) {
+      if (this.pizza[i].id == id) {
+        return this.pizza[i];
       }
     }
   };
   return false;
 }
-
-Pizza.prototype.deletePizza = function(id) {
-  for (var i=0; i< this.pizzas.length; i++) {
-    if (this.pizzas[i]) {
-      if (this.pizzas[i].id == id) {
-        delete this.pizzas[i];
+Pizza.prototype.Pizza = function(id) {
+  for (var i=0; i< this.pizza.length; i++) {
+    if (this.pizza[i]) {
+      if (this.pizza[i].id == id) {
+        delete this.pizza[i];
         return true;
       }
     }
@@ -66,7 +48,21 @@ Pizza.prototype.deletePizza = function(id) {
   return false;
 }
 
+Pizza.prototype.addToppings = function(toppings){
+  var pizzaTop = [];
+  toppings.forEach(function(top){
+    pizzaTop.push(top);
+  })
+  this.toppings = toPizza;
+}
 
+Pizza.prototype.getPrice = function() {
+  price = parseInt(this.size.price);
+  this.toppings.forEach(function(top){
+    price += (parseInt(top.price)/100);
+  })
+  return price.toFixed(2);
+}
 
 // user interface
 var pizzaOrder = new Pizza();
@@ -111,12 +107,12 @@ $(document).ready(function() {
   $("form#make-pizza").submit(function(event) {
     event.preventDefault();
     var selectedSize = $("#size option:selected").text();
-    var size = new Size(selectedSize, $("#size").val()); //get the name and value of the size of the pizzas
-    var topping = []
+    var size = new Size(selectedSize,$("#size").val()); //get the name and value of the size of the pizzas
+    var toppings = [];
     $("input:checkbox[name=add-topping]:checked").each(function() {
-      topping.push(new Toppings(this.value,$(this).attr("class"))); //this.value gets the name of toppings, and attr gets the values from the class
+      toppings.push(new Toppings(this.value,$(this).attr("class"))); //this.value gets the name of toppings, and attr gets the values from the class
     });
-    var newPizza = (new Pizza(size, topping));
+    var newPizza = (new Pizza(size, toppings));
     pizzaOrder.pizzas.push(newPizza)
     displayOrderDetails(pizzaOrder);
 
