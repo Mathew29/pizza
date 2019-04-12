@@ -12,8 +12,8 @@ function Toppings (name, price) {
 }
 
 function Size(name,price) {
-  this.name,
-  this.price
+  this.name = name,
+  this.price = price
 }
 
 Pizza.prototype.addId = function(pizza) {
