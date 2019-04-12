@@ -23,7 +23,7 @@ Pizza.prototype.addToppings = function(toppings) {
   var topOnPizza = [];
   toppings.forEach(function(topping) {
     topOnPizza.push(topping);
-  });
+  })
   this.toppings = topOnPizza;
 }
 
@@ -84,14 +84,15 @@ function displayOrderDetails(pizzaToDisplay) {
 function showPizza(pizzaId) {
   var pizza = PizzaOrder.findPizza(pizzaId);
   $("#pizza-details").show();
-  ("$.size").html(pizzas[pizzaId].size.name);
+  ("$.size").html(pizza.size.name);
   var toppingString = "";
-  pizzas[pizzaId].toppings.forEach(function(topping) {
+  pizza.toppings.forEach(function(topping) {
     toppingString += topping.name + ", ";
   });
   toppingString = toppingString.slice(0,toString.length-2);
   ("$.toppings").html(toppingString);
-  ("$.price").html(pizzas[pizzaId].getPrice());
+  ("$.price").html(pizza.getPrice());
+  var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + pizza.id + ">Delete Pizza</button>");
 }
