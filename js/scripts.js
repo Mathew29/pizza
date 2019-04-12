@@ -22,8 +22,8 @@ Pizza.prototype.addId = function(pizza) {
 }
 
 Pizza.prototype.assignId = function() {
-  this.pizzaId += 1;
-  return this.pizzaId;
+  this.currentId += 1;
+  return this.currentId;
 }
 
 Pizza.prototype.findPizza = function(id) {
@@ -36,7 +36,7 @@ Pizza.prototype.findPizza = function(id) {
   };
   return false;
 }
-Pizza.prototype.Pizza = function(id) {
+Pizza.prototype.deletePizza = function(id) {
   for (var i=0; i< this.pizza.length; i++) {
     if (this.pizza[i]) {
       if (this.pizza[i].id == id) {
@@ -76,24 +76,24 @@ function displayOrderDetails(pizzaToDisplay) {
   orderList.html(htmlForOrderInfo);
 };
 function showPizza(pizzaId) {
-  // var pizza = Pizza.findPizza(pizzaId);
+  var pizza = Pizza.findPizza(pizzaId);
   $("#pizza-details").show();
-  ("$.size").html(pizzas[pizzaId].size.name);
+  ("$.size").html(pizza.size.name);
   var toppingString = "";
-  pizzas[pizzaId].toppings.forEach(function(topping) {
-    toppingString += topping.name + ", ";
+  pizza.toppings.forEach(function(topping) {
+    toppingString += toppings.name + ", ";
   });
   toppingString = toppingString.slice(0,toString.length-1);
   ("$.toppings").html(toppingString);
-  ("$.price").html(pizzas[pizzaId].getPrice());
+  ("$.price").html(pizza.getPrice());
   var buttons = $("#buttons");
   buttons.empty();
-  buttons.append("<button class='deleteButton' id=" + pizza.id + ">Delete Pizza</button>");
+  buttons.append("<button class='deleteButton' id=" + pizza.id + ">Delete</button>");
 }
 
 function attachListeners() {
  $("ul#order-list").on("click", "li", function() {
-   showContact(this.id);
+   showPizza(this.id);
  });
  $("#buttons").on("click", ".deleteButton", function() {
    Pizza.deletePizza(this.id);
