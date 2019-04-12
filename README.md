@@ -9,16 +9,16 @@
 _It will create a web application allows a user to click on a drop down box to pick what size of pizza they want. They can also click on the checkboxes to pick what toppings they want. When they hit submit they will see the details of the order. _
 
 
-## Behavior-Driven Development
+## Specs
 
-|Behavior|Input|Output|
-|-|-|-|
-||||
-||||
-||||
-||||
-||||
-||||
+*Allow the user to pick what size of pizza they want
+*Allow the user to pick what size of toppings they want
+*Create a pizza object with properties for toppings and Size
+*Create a size object with properties for name and price
+*Create a toppings object with properties for name and Price
+*Create a prototype method to figure out the cost of the pizza
+
+
 ## Setup/Installation Requirements
 
 1. Clone Github repository

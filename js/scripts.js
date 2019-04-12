@@ -1,12 +1,10 @@
 // back end
-function PizzaOrder(){
-  this.pizzas = [],
-  this.currentId = 0
-}
+  var pizzas = [];
 
-function Pizza(size, toppings) {
+function Pizza(size, topping) {
   this.size = size,
-  this.addToppings(toppings)
+  this.addToppings(topping),
+  this.currentId = 0
 }
 
 function Size(name, price) {
@@ -19,33 +17,33 @@ function Toppings(name, price) {
   this.price = price
 }
 
-Pizza.prototype.addToppings = function(toppings) {
+Pizza.prototype.addToppings = function(topping) {
   var topOnPizza = [];
-  toppings.forEach(function(topping) {
-    topOnPizza.push(topping);
+  topping.forEach(function(toppings) {
+    topOnPizza.push(toppings);
   })
-  this.toppings = topOnPizza;
+  this.topping = topOnPizza;
 }
 
 Pizza.prototype.getPrice = function() {
   price = parseInt(this.size.price)
-  this.toppings.forEach(function(topping) {
-    price += (parseInt(topping.price)/100)
+  this.topping.forEach(function(toppings) {
+    price += (parseInt(toppings.price)/100)
   });
   return price.toFixed(2);
 }
 
-PizzaOrder.prototype.addId = function(pizza) {
+Pizza.prototype.addId = function(pizza) {
   pizza.id = this.assignId();
   this.pizzas.push(pizza);
 }
 
-PizzaOrder.prototype.assignId = function() {
+Pizza.prototype.assignId = function() {
   this.currentId += 1;
   return this.currentId;
 }
 
-PizzaOrder.prototype.findPizza = function(id) {
+Pizza.prototype.findPizza = function(id) {
   for (var i=0; i< this.pizzas.length; i++) {
     if (this.pizzas[i]) {
       if (this.pizzas[i].id == id) {
@@ -56,7 +54,7 @@ PizzaOrder.prototype.findPizza = function(id) {
   return false;
 }
 
-PizzaOrder.prototype.deletePizza = function(id) {
+Pizza.prototype.deletePizza = function(id) {
   for (var i=0; i< this.pizzas.length; i++) {
     if (this.pizzas[i]) {
       if (this.pizzas[i].id == id) {
@@ -71,27 +69,27 @@ PizzaOrder.prototype.deletePizza = function(id) {
 
 
 // user interface
-var pizzaOrder = new PizzaOrder();
+var pizzaOrder = new Pizza();
 
 function displayOrderDetails(pizzaToDisplay) {
   var orderList = $("ul#order-list");
   var htmlForOrderInfo = "";
   pizzaToDisplay.pizzas.forEach(function(pizza) {
-    htmlForOrderInfo += "<li id=" + pizza.id + ">" + pizza.size.name + " " + pizza.toppings.length + "Toppings</li>";
+    htmlForOrderInfo += "<li id=" + pizza.id + ">" + pizza.size.name + " " + pizza.topping.length + "Toppings</li>";
   })
   orderList.html(htmlForOrderInfo);
 };
 function showPizza(pizzaId) {
-  var pizza = PizzaOrder.findPizza(pizzaId);
+  // var pizza = Pizza.findPizza(pizzaId);
   $("#pizza-details").show();
-  ("$.size").html(pizza.size.name);
+  ("$.size").html(pizzas[pizzaId].size.name);
   var toppingString = "";
-  pizza.toppings.forEach(function(topping) {
+  pizzas[pizzaId].toppings.forEach(function(topping) {
     toppingString += topping.name + ", ";
   });
-  toppingString = toppingString.slice(0,toString.length-2);
+  toppingString = toppingString.slice(0,toString.length-1);
   ("$.toppings").html(toppingString);
-  ("$.price").html(pizza.getPrice());
+  ("$.price").html(pizzas[pizzaId].getPrice());
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + pizza.id + ">Delete Pizza</button>");
@@ -102,7 +100,7 @@ function attachListeners() {
    showContact(this.id);
  });
  $("#buttons").on("click", ".deleteButton", function() {
-   PizzaOrder.deletePizza(this.id);
+   Pizza.deletePizza(this.id);
    $("#pizza-details").hide();
    displayOrderDetails(pizzaOrder);
  })
@@ -119,12 +117,8 @@ $(document).ready(function() {
       topping.push(new Toppings(this.value,$(this).attr("class"))); //this.value gets the name of toppings, and attr gets the values from the class
     });
     var newPizza = (new Pizza(size, topping));
-    console.log(Pizza("hi"))
     pizzaOrder.pizzas.push(newPizza)
     displayOrderDetails(pizzaOrder);
-
-
-
 
   });
 
