@@ -14,10 +14,8 @@ _It will create a web application allows a user to click on a drop down box to p
 *Allow the user to pick what size of pizza they want
 *Allow the user to pick what size of toppings they want
 *Create a pizza object with properties for toppings and Size
-*Create a size object with properties for name and price
-*Create a toppings object with properties for name and Price
 *Create a prototype method to figure out the cost of the pizza
-
+*Output the Size of the pizza, what toppings are on the pizza and how much it costs.
 
 ## Setup/Installation Requirements
 
